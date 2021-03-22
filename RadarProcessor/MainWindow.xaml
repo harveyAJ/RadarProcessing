@@ -1,0 +1,42 @@
+﻿<Window x:Class="RadarProcessor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RadarProcessor"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+        <DockPanel DataContext="{Binding Main, Source={StaticResource Locator}}">
+            <ToolBarTray DockPanel.Dock="Top">
+                <ToolBar>
+                    <Button Command="{Binding BrowseRdxCommand}" Content="Browse RDX" />
+                </ToolBar>
+                <ToolBar IsEnabled="{Binding IsRdxSelected}">
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Overflights?</Label>
+                        <CheckBox IsChecked="{Binding IsOverflight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        <Label>Arrivals?</Label>
+                        <CheckBox IsChecked="{Binding IsArrival, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        <Label>Departures?</Label>
+                        <CheckBox IsChecked="{Binding IsDeparture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        <xctk:DateTimePicker Text="From:" Value="{Binding FromDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:DateTimePicker>
+                        <xctk:DateTimePicker Text="To:" Value="{Binding ToDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:DateTimePicker>
+                    </StackPanel>
+                </ToolBar>
+                <ToolBar>
+                    <Button Command="{Binding LoadRdxCommand}" Content="Load tracks" />
+                    <Button Command="{Binding CancelCommand}" Content="Cancel" />
+                </ToolBar>
+            </ToolBarTray>
+            <StatusBar DockPanel.Dock="Bottom" >
+                <StatusBarItem>
+                    <TextBlock Text="{Binding Status}" />
+                </StatusBarItem>
+            </StatusBar>
+        <oxy:PlotView Model="{Binding PlotModel}"></oxy:PlotView>
+
+            
+        </DockPanel>
+</Window>
